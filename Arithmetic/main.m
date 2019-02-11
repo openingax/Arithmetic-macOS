@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Sort/SortMain.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        // insert code here...
-        NSLog(@"Hello, World!");
+        
+        SortMain *sortMain = [[SortMain alloc] init];
+        [sortMain execute];
+        
     }
     return 0;
 }
