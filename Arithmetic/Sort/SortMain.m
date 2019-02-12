@@ -8,7 +8,7 @@
 
 #import "SortMain.h"
 
-BOOL needLogNumbers = YES;
+BOOL needLogNumbers = NO;
 
 @interface SortMain ()
 
@@ -20,17 +20,17 @@ BOOL needLogNumbers = YES;
 
 - (void)execute
 {
-    self.publicArray = [self generalArrayWithCount:10];
+    self.publicArray = [self generalArrayWithCount:100000];
     
-    [self bubbleSort];
-    [self cocktailSort];
-    [self selectionSort];
+//    [self bubbleSort];
+//    [self cocktailSort];
+//    [self selectionSort];
     [self insertionSort];
     [self insertionSortDichotomy];
     [self shellSort];
-    [self mergeSortRecursion];
-    [self mergeSortIteration];
-    [self quickSort];
+//    [self mergeSortRecursion];
+//    [self mergeSortIteration];
+//    [self quickSort];
 }
 
 
