@@ -20,17 +20,17 @@ BOOL needLogNumbers = NO;
 
 - (void)execute
 {
-    self.publicArray = [self generalArrayWithCount:100000];
+    self.publicArray = [self generalArrayWithCount:30000];
     
-//    [self bubbleSort];
-//    [self cocktailSort];
-//    [self selectionSort];
+    [self bubbleSort];
+    [self cocktailSort];
+    [self selectionSort];
     [self insertionSort];
     [self insertionSortDichotomy];
     [self shellSort];
-//    [self mergeSortRecursion];
-//    [self mergeSortIteration];
-//    [self quickSort];
+    [self mergeSortRecursion];
+    [self mergeSortIteration];
+    [self quickSort];
 }
 
 
@@ -70,7 +70,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = self.publicArray;
+    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
     
     for (int i = 0; i < originArr.count - 1; i++) {
         for (int j = 0; j < originArr.count - 1 - i; j++) {
@@ -103,7 +103,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = self.publicArray;
+    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
     
     NSInteger left = 0;
     NSInteger right = originArr.count - 1;
@@ -148,7 +148,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = self.publicArray;
+    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
     
     for (int i = 0; i < originArr.count - 1; i++) {
         NSInteger min = i;
@@ -184,7 +184,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = self.publicArray;
+    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
     
     for (int i = 1; i < originArr.count; i++) {
         // 1、先抽出一张牌
@@ -221,7 +221,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = self.publicArray;
+    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
     
     for (int i = 1; i < originArr.count; i++) {
         // 1、先抽出一张牌
@@ -267,7 +267,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = self.publicArray;
+    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
     
     int h = 0;
     
@@ -350,7 +350,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = self.publicArray;
+    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
     
     [self mergeSortRecursionWithArr:originArr left:0 right:originArr.count - 1];
     
@@ -372,7 +372,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = self.publicArray;
+    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
     
     int left, mid, right;
     for (int i = 1; i < originArr.count; i *= 2) {
@@ -432,7 +432,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = self.publicArray;
+    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
     
     [self quickSortWithArray:originArr left:0 right:originArr.count - 1];
     
