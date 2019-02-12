@@ -8,20 +8,50 @@
 
 #import "SortMain.h"
 
+BOOL needLogNumbers = YES;
+
+@interface SortMain ()
+
+@property(nonatomic,strong) NSMutableArray *publicArray;
+
+@end
+
 @implementation SortMain
 
 - (void)execute
 {
-//    [self bubbleSort];
-//    [self cocktailSort];
-//    [self selectionSort];
-//    [self insertionSort];
+    self.publicArray = [self generalArrayWithCount:10];
+    
+    [self bubbleSort];
+    [self cocktailSort];
+    [self selectionSort];
+    [self insertionSort];
     [self insertionSortDichotomy];
-//    [self shellSort];
-//    [self mergeSortRecursion];
-//    [self mergeSortIteration];
+    [self shellSort];
+    [self mergeSortRecursion];
+    [self mergeSortIteration];
+    [self quickSort];
 }
 
+
+/**
+ 随机生成一个数值范围为 0 ~ 10000 整数的随机数组
+
+ @param count 要生成的数组大小
+ @return 数组
+ */
+- (NSMutableArray *)generalArrayWithCount:(NSInteger)count
+{
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
+    for (int i = 0; i < count; i++) {
+        int x = arc4random() % 1000;
+        [temp addObject:[NSNumber numberWithInt:x]];
+    }
+    
+    return temp;
+}
+
+#pragma mark - Public
 /**
  交换元素
  */
@@ -32,12 +62,15 @@
     [arr replaceObjectAtIndex:secondIdx withObject:temp];
 }
 
+#pragma mark - 冒泡排序
 /**
- 冒泡算法
+ 冒泡排序
  */
 - (void)bubbleSort
 {
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:@[@(6), @(5), @(3), @(1), @(8), @(7), @(2), @(4)]];
+    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+    
+    NSMutableArray *originArr = self.publicArray;
     
     for (int i = 0; i < originArr.count - 1; i++) {
         for (int j = 0; j < originArr.count - 1 - i; j++) {
@@ -51,9 +84,14 @@
         }
     }
     
-    NSLog(@"冒泡排序");
-    for (NSNumber *num in originArr) {
-        NSLog(@"%ld\n", num.integerValue);
+    CFAbsoluteTime linkTime = CFAbsoluteTimeGetCurrent() - startTime;
+    
+    NSLog(@"冒泡排序 -- %lf", linkTime);
+    
+    if (needLogNumbers) {
+        for (NSNumber *num in originArr) {
+            NSLog(@"%ld\n", num.integerValue);
+        }
     }
 }
 
@@ -63,9 +101,9 @@
  */
 - (void)cocktailSort
 {
-    NSArray *array = @[@(6), @(5), @(3), @(1), @(8), @(7), @(2), @(4)];
-    //    NSArray *array = @[@(2), @(3), @(4), @(1)];
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:array];
+    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+    
+    NSMutableArray *originArr = self.publicArray;
     
     NSInteger left = 0;
     NSInteger right = originArr.count - 1;
@@ -91,20 +129,26 @@
         left ++;
     }
     
-    NSLog(@"鸡尾酒排序");
-    for (NSNumber *num in originArr) {
-        NSLog(@"%ld\n", num.integerValue);
+    CFAbsoluteTime linkTime = CFAbsoluteTimeGetCurrent() - startTime;
+    
+    NSLog(@"鸡尾酒排序 -- %lf", linkTime);
+    
+    if (needLogNumbers) {
+        for (NSNumber *num in originArr) {
+            NSLog(@"%ld\n", num.integerValue);
+        }
     }
 }
 
-
+#pragma mark - 选择排序
 /**
  选择排序
  */
 - (void)selectionSort
 {
-    NSArray *array = @[@(6), @(5), @(3), @(1), @(8), @(7), @(2), @(4)];
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:array];
+    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+    
+    NSMutableArray *originArr = self.publicArray;
     
     for (int i = 0; i < originArr.count - 1; i++) {
         NSInteger min = i;
@@ -121,20 +165,26 @@
         }
     }
     
-    NSLog(@"选择排序");
-    for (NSNumber *num in originArr) {
-        NSLog(@"%ld\n", num.integerValue);
+    CFAbsoluteTime linkTime = CFAbsoluteTimeGetCurrent() - startTime;
+    
+    NSLog(@"选择排序 -- %lf", linkTime);
+    
+    if (needLogNumbers) {
+        for (NSNumber *num in originArr) {
+            NSLog(@"%ld\n", num.integerValue);
+        }
     }
 }
 
-
+#pragma mark - 插入排序
 /**
  插入排序
  */
 - (void)insertionSort
 {
-    NSArray *array = @[@(6), @(5), @(3), @(1), @(8), @(7), @(2), @(4)];
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:array];
+    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+    
+    NSMutableArray *originArr = self.publicArray;
     
     for (int i = 1; i < originArr.count; i++) {
         // 1、先抽出一张牌
@@ -152,9 +202,14 @@
         originArr[j+1] = [NSNumber numberWithInteger:get];
     }
     
-    NSLog(@"插入排序");
-    for (NSNumber *num in originArr) {
-        NSLog(@"%ld\n", num.integerValue);
+    CFAbsoluteTime linkTime = CFAbsoluteTimeGetCurrent() - startTime;
+    
+    NSLog(@"插入排序 -- %lf", linkTime);
+    
+    if (needLogNumbers) {
+        for (NSNumber *num in originArr) {
+            NSLog(@"%ld\n", num.integerValue);
+        }
     }
 }
 
@@ -164,8 +219,9 @@
  */
 - (void)insertionSortDichotomy
 {
-    NSArray *array = @[@(6), @(5), @(3), @(1), @(8), @(7), @(2), @(4)];
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:array];
+    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+    
+    NSMutableArray *originArr = self.publicArray;
     
     for (int i = 1; i < originArr.count; i++) {
         // 1、先抽出一张牌
@@ -192,9 +248,14 @@
         originArr[left] = [NSNumber numberWithInteger:get];
     }
     
-    NSLog(@"二分法插入排序");
-    for (NSNumber *num in originArr) {
-        NSLog(@"%ld\n", num.integerValue);
+    CFAbsoluteTime linkTime = CFAbsoluteTimeGetCurrent() - startTime;
+    
+    NSLog(@"二分法插入排序 -- %lf", linkTime);
+    
+    if (needLogNumbers) {
+        for (NSNumber *num in originArr) {
+            NSLog(@"%ld\n", num.integerValue);
+        }
     }
 }
 
@@ -204,8 +265,9 @@
  */
 - (void)shellSort
 {
-    NSArray *array = @[@(6), @(5), @(3), @(1), @(8), @(7), @(2), @(4)];
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:array];
+    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+    
+    NSMutableArray *originArr = self.publicArray;
     
     int h = 0;
     
@@ -230,12 +292,19 @@
         h = (h - 1) / 3;        // 递减增量
     }
     
-    NSLog(@"希尔排序");
-    for (NSNumber *num in originArr) {
-        NSLog(@"%ld\n", num.integerValue);
+    CFAbsoluteTime linkTime = CFAbsoluteTimeGetCurrent() - startTime;
+    
+    NSLog(@"希尔排序 -- %lf", linkTime);
+    
+    if (needLogNumbers) {
+        for (NSNumber *num in originArr) {
+            NSLog(@"%ld\n", num.integerValue);
+        }
     }
 }
 
+
+#pragma mark - 归并排序
 
 - (void)mergeWithArr:(NSMutableArray *)array left:(NSInteger)left mid:(NSInteger)mid right:(NSInteger)right
 {
@@ -262,23 +331,6 @@
     }
 }
 
-
-/**
- 递归实现的归并排序（自顶向下）
- */
-- (void)mergeSortRecursion
-{
-    NSArray *array = @[@(6), @(5), @(3), @(1), @(8), @(7), @(2), @(4)];
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:array];
-    
-    [self mergeSortRecursionWithArr:originArr left:0 right:originArr.count - 1];
-    
-    NSLog(@"递归实现的归并排序");
-    for (NSNumber *num in originArr) {
-        NSLog(@"%ld\n", num.integerValue);
-    }
-}
-
 - (void)mergeSortRecursionWithArr:(NSMutableArray *)arr left:(NSInteger)left right:(NSInteger)right
 {
     if (left == right) return;
@@ -292,12 +344,35 @@
 
 
 /**
+ 递归实现的归并排序（自顶向下）
+ */
+- (void)mergeSortRecursion
+{
+    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+    
+    NSMutableArray *originArr = self.publicArray;
+    
+    [self mergeSortRecursionWithArr:originArr left:0 right:originArr.count - 1];
+    
+    CFAbsoluteTime linkTime = CFAbsoluteTimeGetCurrent() - startTime;
+    
+    NSLog(@"递归实现的归并排序 -- %lf", linkTime);
+    
+    if (needLogNumbers) {
+        for (NSNumber *num in originArr) {
+            NSLog(@"%ld\n", num.integerValue);
+        }
+    }
+}
+
+/**
  非递归（迭代）实现的归并排序
  */
 - (void)mergeSortIteration
 {
-    NSArray *array = @[@(6), @(5), @(3), @(1), @(8), @(7), @(2), @(4)];
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:array];
+    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+    
+    NSMutableArray *originArr = self.publicArray;
     
     int left, mid, right;
     for (int i = 1; i < originArr.count; i *= 2) {
@@ -309,10 +384,66 @@
             left = right + 1;
         }
     }
+    CFAbsoluteTime linkTime = CFAbsoluteTimeGetCurrent() - startTime;
     
-    NSLog(@"迭代实现的归并排序");
-    for (NSNumber *num in originArr) {
-        NSLog(@"%ld\n", num.integerValue);
+    NSLog(@"迭代实现的归并排序 -- %lf", linkTime);
+    
+    if (needLogNumbers) {
+        for (NSNumber *num in originArr) {
+            NSLog(@"%ld\n", num.integerValue);
+        }
+    }
+}
+
+
+#pragma mark - 快速排序
+
+- (NSInteger)partitionWithArray:(NSMutableArray *)array left:(NSInteger)left right:(NSInteger)right
+{
+    NSInteger pivot = [array[right] integerValue];
+    NSInteger tail = left - 1;
+    
+    for (NSInteger i = left; i < right; i++) {
+        if ([array[i] integerValue] <= pivot) {
+            [self swapWithArray:array firstIdx:++tail secondIdx:i];
+        }
+    }
+    
+    [self swapWithArray:array firstIdx:tail + 1 secondIdx:right];
+    
+    return tail + 1;
+}
+
+- (void)quickSortWithArray:(NSMutableArray *)array left:(NSInteger)left right:(NSInteger)right
+{
+    if (left >= right) return;
+    
+    NSInteger pivot_index = [self partitionWithArray:array left:left right:right];
+    
+    [self quickSortWithArray:array left:left right:pivot_index - 1];
+    [self quickSortWithArray:array left:pivot_index + 1 right:right];
+}
+
+
+/**
+ 快速排序
+ */
+- (void)quickSort
+{
+    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+    
+    NSMutableArray *originArr = self.publicArray;
+    
+    [self quickSortWithArray:originArr left:0 right:originArr.count - 1];
+    
+    CFAbsoluteTime linkTime = CFAbsoluteTimeGetCurrent() - startTime;
+    
+    NSLog(@"快速排序 -- %lf", linkTime);
+    
+    if (needLogNumbers) {
+        for (NSNumber *num in originArr) {
+            NSLog(@"%ld\n", num.integerValue);
+        }
     }
 }
 
