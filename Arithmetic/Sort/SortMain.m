@@ -13,6 +13,7 @@ BOOL needLogNumbers = NO;
 @interface SortMain ()
 
 @property(nonatomic,strong) NSMutableArray *publicArray;
+@property(nonatomic,strong) NSOperationQueue *queue;
 
 @end
 
@@ -20,19 +21,116 @@ BOOL needLogNumbers = NO;
 
 - (void)execute
 {
-    self.publicArray = [self generalArrayWithCount:30000];
+//    self.publicArray = [self generalArrayWithCount:500];
     
-    [self bubbleSort];
-    [self cocktailSort];
-    [self selectionSort];
-    [self insertionSort];
-    [self insertionSortDichotomy];
-    [self shellSort];
-    [self mergeSortRecursion];
-    [self mergeSortIteration];
-    [self quickSort];
-}
+    // 并发执行排序操作
+//
+//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//
+//    __weak typeof(self) ws = self;
+//    dispatch_async(queue, ^{
+//        [ws selectionSort];
+//    });
+//    dispatch_async(queue, ^{
+//        [ws insertionSort];
+//    });
+//    dispatch_async(queue, ^{
+//        [self insertionSortDichotomy];
+//    });
+//    dispatch_async(queue, ^{
+//        [self shellSort];
+//    });
+//    dispatch_async(queue, ^{
+//        [self mergeSortRecursion];
+//    });
+//    dispatch_async(queue, ^{
+//        [self mergeSortIteration];
+//    });
+//    dispatch_async(queue, ^{
+//        [self quickSort];
+//    });
+    
 
+    self.queue = [[NSOperationQueue alloc] init];
+    self.queue.maxConcurrentOperationCount = 50;
+    
+    __weak typeof(self) ws = self;
+    [self.queue addOperationWithBlock:^{
+        [ws selectionSort];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws insertionSort];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws insertionSortDichotomy];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws shellSort];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws mergeSortRecursion];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws mergeSortIteration];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws quickSort];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws selectionSort];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws insertionSort];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws insertionSortDichotomy];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws shellSort];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws mergeSortRecursion];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws mergeSortIteration];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws quickSort];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws selectionSort];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws insertionSort];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws insertionSortDichotomy];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws shellSort];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws mergeSortRecursion];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws mergeSortIteration];
+    }];
+    [self.queue addOperationWithBlock:^{
+        [ws quickSort];
+    }];
+    
+    [NSThread sleepForTimeInterval:9999999999];
+
+//    [self bubbleSort];
+//    [self cocktailSort];
+//    [self selectionSort];
+//    [self insertionSort];
+//    [self insertionSortDichotomy];
+//    [self shellSort];
+//    [self mergeSortRecursion];
+//    [self mergeSortIteration];
+//    [self quickSort];
+}
 
 /**
  随机生成一个数值范围为 0 ~ 10000 整数的随机数组
@@ -70,7 +168,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
+    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
     
     for (int i = 0; i < originArr.count - 1; i++) {
         for (int j = 0; j < originArr.count - 1 - i; j++) {
@@ -103,7 +201,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
+    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
     
     NSInteger left = 0;
     NSInteger right = originArr.count - 1;
@@ -148,14 +246,17 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
+    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
+//    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:@[@(4), @(3), @(5), @(8), @(6), @(1), @(7), @(2)]];
     
+    // i 的取值范围要减 1
     for (int i = 0; i < originArr.count - 1; i++) {
         NSInteger min = i;
         
-        // 关键是这个 for 循环的 j
+        // 关键是这个 for 循环的 j，注意 j 的取值范围
         for (int j = i + 1; j < originArr.count; j++) {
             if ([originArr[j] integerValue] < [originArr[min] integerValue]) {
+                // 这里找出最小的数
                 min = j;
             }
         }
@@ -163,6 +264,7 @@ BOOL needLogNumbers = NO;
         if (min != i) {
             [self swapWithArray:originArr firstIdx:i secondIdx:min];
         }
+//        NSLog(@"%@", originArr);
     }
     
     CFAbsoluteTime linkTime = CFAbsoluteTimeGetCurrent() - startTime;
@@ -184,7 +286,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
+    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
     
     for (int i = 1; i < originArr.count; i++) {
         // 1、先抽出一张牌
@@ -221,7 +323,9 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
+    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
+    
+//    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
     
     for (int i = 1; i < originArr.count; i++) {
         // 1、先抽出一张牌
@@ -267,7 +371,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
+    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
     
     int h = 0;
     
@@ -350,7 +454,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
+    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
     
     [self mergeSortRecursionWithArr:originArr left:0 right:originArr.count - 1];
     
@@ -372,7 +476,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
+    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
     
     int left, mid, right;
     for (int i = 1; i < originArr.count; i *= 2) {
@@ -432,7 +536,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:self.publicArray];
+    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
     
     [self quickSortWithArray:originArr left:0 right:originArr.count - 1];
     

@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F225777221695D70015A0D6 /* RunLoopMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F225776221695D70015A0D6 /* RunLoopMain.m */; };
+		5F59CDAB222F5EB800948E2B /* GCDMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F59CDAA222F5EB800948E2B /* GCDMain.m */; };
 		5FA6B5E022114E47007A3E9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FA6B5DF22114E47007A3E9B /* main.m */; };
 		5FA6B5ED22114FA9007A3E9B /* SortMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FA6B5EC22114FA9007A3E9B /* SortMain.m */; };
+		5FDC012B222E70D000070ED2 /* MRCMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC012A222E70D000070ED2 /* MRCMain.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		5FDC012E222E7F1600070ED2 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC012D222E7F1600070ED2 /* Person.m */; };
+		5FDC0131222E949800070ED2 /* RuntimeMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC0130222E949800070ED2 /* RuntimeMain.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,10 +29,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5F225775221695D70015A0D6 /* RunLoopMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunLoopMain.h; sourceTree = "<group>"; };
+		5F225776221695D70015A0D6 /* RunLoopMain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunLoopMain.m; sourceTree = "<group>"; };
+		5F59CDA9222F5EB800948E2B /* GCDMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDMain.h; sourceTree = "<group>"; };
+		5F59CDAA222F5EB800948E2B /* GCDMain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDMain.m; sourceTree = "<group>"; };
 		5FA6B5DC22114E47007A3E9B /* Arithmetic */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Arithmetic; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FA6B5DF22114E47007A3E9B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5FA6B5EB22114FA9007A3E9B /* SortMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortMain.h; sourceTree = "<group>"; };
 		5FA6B5EC22114FA9007A3E9B /* SortMain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SortMain.m; sourceTree = "<group>"; };
+		5FDC0129222E70D000070ED2 /* MRCMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MRCMain.h; sourceTree = "<group>"; };
+		5FDC012A222E70D000070ED2 /* MRCMain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MRCMain.m; sourceTree = "<group>"; };
+		5FDC012C222E7F1600070ED2 /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		5FDC012D222E7F1600070ED2 /* Person.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		5FDC012F222E949800070ED2 /* RuntimeMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuntimeMain.h; sourceTree = "<group>"; };
+		5FDC0130222E949800070ED2 /* RuntimeMain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RuntimeMain.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +56,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F225774221695BA0015A0D6 /* RunLoop */ = {
+			isa = PBXGroup;
+			children = (
+				5F225775221695D70015A0D6 /* RunLoopMain.h */,
+				5F225776221695D70015A0D6 /* RunLoopMain.m */,
+				5FDC0129222E70D000070ED2 /* MRCMain.h */,
+				5FDC012A222E70D000070ED2 /* MRCMain.m */,
+				5FDC012F222E949800070ED2 /* RuntimeMain.h */,
+				5FDC0130222E949800070ED2 /* RuntimeMain.m */,
+				5F59CDA9222F5EB800948E2B /* GCDMain.h */,
+				5F59CDAA222F5EB800948E2B /* GCDMain.m */,
+				5FDC012C222E7F1600070ED2 /* Person.h */,
+				5FDC012D222E7F1600070ED2 /* Person.m */,
+			);
+			path = RunLoop;
+			sourceTree = "<group>";
+		};
 		5FA6B5D322114E47007A3E9B = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +92,7 @@
 		5FA6B5DE22114E47007A3E9B /* Arithmetic */ = {
 			isa = PBXGroup;
 			children = (
+				5F225774221695BA0015A0D6 /* RunLoop */,
 				5FA6B5E622114F06007A3E9B /* Sort */,
 				5FA6B5DF22114E47007A3E9B /* main.m */,
 			);
@@ -132,7 +165,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FA6B5E022114E47007A3E9B /* main.m in Sources */,
+				5FDC0131222E949800070ED2 /* RuntimeMain.m in Sources */,
+				5F225777221695D70015A0D6 /* RunLoopMain.m in Sources */,
+				5FDC012E222E7F1600070ED2 /* Person.m in Sources */,
 				5FA6B5ED22114FA9007A3E9B /* SortMain.m in Sources */,
+				5FDC012B222E70D000070ED2 /* MRCMain.m in Sources */,
+				5F59CDAB222F5EB800948E2B /* GCDMain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
