@@ -52,72 +52,54 @@ BOOL needLogNumbers = NO;
     
 
     self.queue = [[NSOperationQueue alloc] init];
-    self.queue.maxConcurrentOperationCount = 50;
+    self.queue.maxConcurrentOperationCount = 8;
     
     __weak typeof(self) ws = self;
     [self.queue addOperationWithBlock:^{
+        CFRunLoopRef currentRunLoop = CFRunLoopGetCurrent();
+        NSLog(@"current RunLoop: %@", currentRunLoop);
         [ws selectionSort];
+        CFRelease(currentRunLoop);
     }];
     [self.queue addOperationWithBlock:^{
+        CFRunLoopRef currentRunLoop = CFRunLoopGetCurrent();
+        NSLog(@"current RunLoop: %@", currentRunLoop);
         [ws insertionSort];
     }];
     [self.queue addOperationWithBlock:^{
+        CFRunLoopRef currentRunLoop = CFRunLoopGetCurrent();
+        NSLog(@"current RunLoop: %@", currentRunLoop);
         [ws insertionSortDichotomy];
     }];
     [self.queue addOperationWithBlock:^{
+        CFRunLoopRef currentRunLoop = CFRunLoopGetCurrent();
+        NSLog(@"current RunLoop: %@", currentRunLoop);
         [ws shellSort];
     }];
     [self.queue addOperationWithBlock:^{
+        CFRunLoopRef currentRunLoop = CFRunLoopGetCurrent();
+        NSLog(@"current RunLoop: %@", currentRunLoop);
         [ws mergeSortRecursion];
     }];
     [self.queue addOperationWithBlock:^{
+        CFRunLoopRef currentRunLoop = CFRunLoopGetCurrent();
+        NSLog(@"current RunLoop: %@", currentRunLoop);
         [ws mergeSortIteration];
     }];
     [self.queue addOperationWithBlock:^{
+        CFRunLoopRef currentRunLoop = CFRunLoopGetCurrent();
+        NSLog(@"current RunLoop: %@", currentRunLoop);
         [ws quickSort];
     }];
-    [self.queue addOperationWithBlock:^{
-        [ws selectionSort];
-    }];
-    [self.queue addOperationWithBlock:^{
-        [ws insertionSort];
-    }];
-    [self.queue addOperationWithBlock:^{
-        [ws insertionSortDichotomy];
-    }];
-    [self.queue addOperationWithBlock:^{
-        [ws shellSort];
-    }];
-    [self.queue addOperationWithBlock:^{
-        [ws mergeSortRecursion];
-    }];
-    [self.queue addOperationWithBlock:^{
-        [ws mergeSortIteration];
-    }];
-    [self.queue addOperationWithBlock:^{
-        [ws quickSort];
-    }];
-    [self.queue addOperationWithBlock:^{
-        [ws selectionSort];
-    }];
-    [self.queue addOperationWithBlock:^{
-        [ws insertionSort];
-    }];
-    [self.queue addOperationWithBlock:^{
-        [ws insertionSortDichotomy];
-    }];
-    [self.queue addOperationWithBlock:^{
-        [ws shellSort];
-    }];
-    [self.queue addOperationWithBlock:^{
-        [ws mergeSortRecursion];
-    }];
-    [self.queue addOperationWithBlock:^{
-        [ws mergeSortIteration];
-    }];
-    [self.queue addOperationWithBlock:^{
-        [ws quickSort];
-    }];
+    
+//    NSInvocationOperation *invo0 = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(selectionSort) object:nil];
+//    NSInvocationOperation *invo1 = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(insertionSort) object:nil];
+//
+//    [invo0 addDependency:invo1];
+//
+//    [self.queue addOperation:invo0];
+//    [self.queue addOperation:invo1];
+    
     
     [NSThread sleepForTimeInterval:9999999999];
 
@@ -168,7 +150,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
+    NSMutableArray *originArr = [self generalArrayWithCount:10000];
     
     for (int i = 0; i < originArr.count - 1; i++) {
         for (int j = 0; j < originArr.count - 1 - i; j++) {
@@ -201,7 +183,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
+    NSMutableArray *originArr = [self generalArrayWithCount:10000];
     
     NSInteger left = 0;
     NSInteger right = originArr.count - 1;
@@ -246,7 +228,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
+    NSMutableArray *originArr = [self generalArrayWithCount:10000];
 //    NSMutableArray *originArr = [[NSMutableArray alloc] initWithArray:@[@(4), @(3), @(5), @(8), @(6), @(1), @(7), @(2)]];
     
     // i 的取值范围要减 1
@@ -286,7 +268,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
+    NSMutableArray *originArr = [self generalArrayWithCount:10000];
     
     for (int i = 1; i < originArr.count; i++) {
         // 1、先抽出一张牌
@@ -323,9 +305,9 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
+    NSMutableArray *originArr = [self generalArrayWithCount:10000];
     
-//    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
+//    NSMutableArray *originArr = [self generalArrayWithCount:10000];
     
     for (int i = 1; i < originArr.count; i++) {
         // 1、先抽出一张牌
@@ -371,7 +353,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
+    NSMutableArray *originArr = [self generalArrayWithCount:10000];
     
     int h = 0;
     
@@ -454,7 +436,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
+    NSMutableArray *originArr = [self generalArrayWithCount:10000];
     
     [self mergeSortRecursionWithArr:originArr left:0 right:originArr.count - 1];
     
@@ -476,7 +458,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
+    NSMutableArray *originArr = [self generalArrayWithCount:10000];
     
     int left, mid, right;
     for (int i = 1; i < originArr.count; i *= 2) {
@@ -536,7 +518,7 @@ BOOL needLogNumbers = NO;
 {
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     
-    NSMutableArray *originArr = [self generalArrayWithCount:1000000];
+    NSMutableArray *originArr = [self generalArrayWithCount:10000];
     
     [self quickSortWithArray:originArr left:0 right:originArr.count - 1];
     
